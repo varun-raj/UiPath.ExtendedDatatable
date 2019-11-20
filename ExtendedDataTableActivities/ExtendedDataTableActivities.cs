@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExtendedDataTableActivities.Lib;
+using System;
 using System.Activities;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,5 +57,102 @@ namespace ExtendedDataTableActivities
         }
     }
 
+
+    public class MaximumInColumn : CodeActivity
+    {
+        [Category("Input")]
+        [RequiredArgument]
+        public InArgument<DataTable> InputDataTable { get; set; }
+
+        [Category("Input")]
+        [RequiredArgument]
+        public InArgument<int> ColumnIndex { get; set; }
+
+
+        [Category("Output")]
+        [RequiredArgument]
+        public OutArgument<double> MaximumValue { get; set; }
+
+        protected override void Execute(CodeActivityContext context)
+        {
+            var inputDataTable = InputDataTable.Get(context);
+            var columnIndex = ColumnIndex.Get(context);
+            double result = Utils.ColumnActionOnDataTable(inputDataTable, columnIndex, "MAX");
+            MaximumValue.Set(context, result);
+        }
+    }
+
+    public class SumOfColumn : CodeActivity
+    {
+        [Category("Input")]
+        [RequiredArgument]
+        public InArgument<DataTable> InputDataTable { get; set; }
+
+        [Category("Input")]
+        [RequiredArgument]
+        public InArgument<int> ColumnIndex { get; set; }
+
+
+        [Category("Output")]
+        [RequiredArgument]
+        public OutArgument<double> SumValue { get; set; }
+
+        protected override void Execute(CodeActivityContext context)
+        {
+            var inputDataTable = InputDataTable.Get(context);
+            var columnIndex = ColumnIndex.Get(context);
+            double result = Utils.ColumnActionOnDataTable(inputDataTable, columnIndex, "SUM");
+            SumValue.Set(context, result);
+        }
+    }
+
+
+    public class MinimumInColumn : CodeActivity
+    {
+        [Category("Input")]
+        [RequiredArgument]
+        public InArgument<DataTable> InputDataTable { get; set; }
+
+        [Category("Input")]
+        [RequiredArgument]
+        public InArgument<int> ColumnIndex { get; set; }
+
+
+        [Category("Output")]
+        [RequiredArgument]
+        public OutArgument<double> MinimumValue { get; set; }
+
+        protected override void Execute(CodeActivityContext context)
+        {
+            var inputDataTable = InputDataTable.Get(context);
+            var columnIndex = ColumnIndex.Get(context);
+            double result = Utils.ColumnActionOnDataTable(inputDataTable, columnIndex, "MIN");
+            MinimumValue.Set(context, result);
+        }
+    }
+
+    public class AverageInColumn : CodeActivity
+    {
+        [Category("Input")]
+        [RequiredArgument]
+        public InArgument<DataTable> InputDataTable { get; set; }
+
+        [Category("Input")]
+        [RequiredArgument]
+        public InArgument<int> ColumnIndex { get; set; }
+
+
+        [Category("Output")]
+        [RequiredArgument]
+        public OutArgument<double> AverageValue { get; set; }
+
+        protected override void Execute(CodeActivityContext context)
+        {
+            var inputDataTable = InputDataTable.Get(context);
+            var columnIndex = ColumnIndex.Get(context);
+            double result = Utils.ColumnActionOnDataTable(inputDataTable, columnIndex, "AVG");
+            AverageValue.Set(context, result);
+        }
+    }
 
 }
